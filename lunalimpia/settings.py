@@ -30,7 +30,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 from datetime import timedelta
 
 SIMPLE_JWT = {
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),   
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),   
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
     'AUTH_HEADER_TYPES': ('Bearer',),
     'USER_ID_FIELD': 'id',
@@ -95,7 +95,7 @@ DATABASES = {
           'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
         'OPTIONS': {
-            'timeout': 60,
+            'timeout': 300,
         }
     }
 }
