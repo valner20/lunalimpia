@@ -14,7 +14,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 class ClienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cliente
-        fields = ['id','nombre', 'direccion', 'video']
+        fields = ['id','nombre', 'direccion','cedula','correo', 'video']
 
 
 class ProfesionalSerializer(serializers.ModelSerializer):

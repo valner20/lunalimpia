@@ -25,8 +25,18 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG") == "True"
 
-ALLOWED_HOSTS = ["*"]
-CORS_ALLOW_ALL_ORIGINS = True
+ALLOWED_HOSTS = [
+    "lunalimpia.fly.dev",         
+    "lunalimpia.vercel.app",      
+    "localhost", "127.0.0.1"
+]
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOWED_ORIGINS = [
+    "https://lunalimpia.vercel.app",
+    "http://localhost:4200",
+    "http://127.0.0.1:4200"
+]
+
 from datetime import timedelta
 
 SIMPLE_JWT = {
@@ -92,8 +102,8 @@ WSGI_APPLICATION = 'lunalimpia.wsgi.application'
 
 DATABASES = {
     'default': {
-          'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': '/data/db.sqlite3',
         'OPTIONS': {
             'timeout': 300,
         }
