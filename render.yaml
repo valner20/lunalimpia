@@ -1,7 +1,0 @@
-services:
-  - type: web
-    name: lunalimpia
-    env: python
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "gunicorn lunalimpia.wsgi:application"
-    staticPublishPath: staticfiles
