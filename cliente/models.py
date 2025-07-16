@@ -2,7 +2,17 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
     
 class Profesional(AbstractUser):
-    pass
+    username = models.CharField(
+        max_length=150,
+        unique=True,
+        validators=[]
+    )
+    cedula = models.CharField(max_length=100, unique=True)
+    USERNAME_FIELD = 'cedula'        
+    REQUIRED_FIELDS = ['username']
+
+    def __str__(self):
+        return self.username
 
 class Cliente(models.Model):
     nombre = models.CharField(max_length=100)

@@ -14,21 +14,6 @@ class ProfesionalViewSet(viewsets.ModelViewSet):
     serializer_class = ProfesionalSerializer
     permission_classes = [IsAuthenticated,SoloSuperuserPuedeCrear]
 
-    def update(self, request, *args, **kwargs):
-        instance = self.get_object()
-        data = request.data.copy()
-
-        if 'password' in data:
-            instance.set_password(data['password']) 
-            instance.save()
-            data.pop('password') 
-
-        serializer = self.get_serializer(instance, data=data, partial=True)
-        serializer.is_valid(raise_exception=True)
-        self.perform_update(serializer)
-
-        return Response(serializer.data)
-
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
 class CitaViewSet(viewsets.ModelViewSet):

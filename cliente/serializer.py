@@ -3,6 +3,15 @@ from .models import Cliente, Profesional, Turno
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    username_field = 'cedula'
+
+    def validate(self, attrs):
+        cedula = attrs.get('cedula')
+        if not cedula:
+            raise serializers.ValidationError({'cedula': 'Este campo es obligatorio.'})
+
+        return super().validate(attrs)
+    
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
@@ -13,14 +22,14 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     
 class ClienteSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Cliente
+        model = Cliente 
         fields = ['id','nombre', 'direccion','cedula','correo', 'video']
 
 
 class ProfesionalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profesional
-        fields = ["id","username"]
+        fields = ["id","username", "cedula","is_staff"]
 
 class CitaCrearSerializer(serializers.ModelSerializer):
     class Meta:
@@ -35,16 +44,15 @@ class CitaSerializer(serializers.ModelSerializer):
         model = Turno
         fields = ['id','fecha', 'hora', 'cliente', 'profesional', 'valor']  
 class RegistroProfesionalSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)
 
     class Meta:
         model = Profesional
-        fields = ['username', 'password']
+        fields = ["id",'username', 'cedula']
 
     def create(self, validated_data):
-        password = validated_data.pop('password')
+        cedula = validated_data['cedula']
         profesional = Profesional(**validated_data)
-        profesional.set_password(password)
+        profesional.set_password(cedula)
         profesional.save()
         return profesional
 
